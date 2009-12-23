@@ -1,7 +1,7 @@
 CPOperation
 ===
 
-This works just like the Cocoa classes. So you can just check out [the official docs](http://developer.apple.com/mac/library/DOCUMENTATION/Cocoa/Reference/NSOperation_class/Reference/Reference.html#//apple_ref/doc/c_ref/NSOperation).
+This works just like the Cocoa classes. So you can just check out [the official docs](http://developer.apple.com/mac/library/DOCUMENTATION/Cocoa/Reference/NSOperation_class/Reference/Reference.html#//apple_ref/doc/c_ref/NSOperation). One exception: Everywhere where the Cocoa API uses the term "block", CPOperation uses "function". So it's CPFunctionOperation instead of CPBlockOperation.
 
 For more usage examples, look at the tests. You can run them like this:
 

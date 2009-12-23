@@ -1,10 +1,12 @@
 @import "../CPOperation/CPInvocationOperation.j"
 
-@implementation SomeObject : CPObject {
+@implementation SomeObject : CPObject 
+{
     CPString result @accessors;
 }
 
-- (CPString)setAString:(CPString)someString {
+- (CPString)setAString:(CPString)someString 
+{
     result = someString;
     return @"Done";
 }
@@ -13,11 +15,11 @@
 
 @implementation CPInvocationOperationTest : OJTestCase
 
-- (void)test_run_invocation
+- (void)testRunInvocation
 {
-    so = [[SomeObject alloc] init];
+    var so = [[SomeObject alloc] init],
+        io = [[CPInvocationOperation alloc] initWithTarget:so selector:@selector(setAString:) object:@"Hello World"];
     
-    io = [[CPInvocationOperation alloc] initWithTarget:so selector:@selector(setAString:) object:@"Hello World"];
     [io start];
     
     [self assert:@"Hello World" equals:[so result]];

@@ -1,10 +1,12 @@
 @import "../CPOperation/CPFunctionOperation.j"
 
-@implementation SomeObject : CPObject {
+@implementation SomeObject : CPObject 
+{
     CPString result @accessors;
 }
 
-- (CPString)setAString:(CPString)someString {
+- (CPString)setAString:(CPString)someString 
+{
     result = someString;
     return @"Done";
 }
@@ -13,7 +15,7 @@
 
 @implementation CPFunctionOperationTest : OJTestCase
 
-- (void)test_run_invocation
+- (void)testRunInvocation
 {
     so = [[SomeObject alloc] init];
     

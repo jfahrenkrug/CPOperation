@@ -1,22 +1,27 @@
 @import "../CPOperation/CPOperation.j"
 
-@implementation TestOperation : CPOperation {
+@implementation TestOperation : CPOperation 
+{
     CPString name @accessors;
     CPString value @accessors;
 }
 
-- (void)main {
+- (void)main 
+{
     [self setName:@"test"];
 }
 
 @end
 
-@implementation TestObserver : CPObject {
+@implementation TestObserver : CPObject 
+{
     CPArray changedKeyPaths @accessors;
 }
 
-- (id)init {
-    if (self = [super init]) {
+- (id)init 
+{
+    if (self = [super init]) 
+    {
         changedKeyPaths = [[CPArray alloc] init];
     }
     return self;
@@ -35,20 +40,20 @@
 
 @implementation CPOperationTest : OJTestCase
 
-- (void)test_add_dependency
+- (void)testAddDependency
 {
-    var co = [[CPOperation alloc] init];
-    var co_dep = [[CPOperation alloc] init];
+    var co = [[CPOperation alloc] init],
+        co_dep = [[CPOperation alloc] init];
     
     [co addDependency:co_dep];
     [self assert:1 equals:[[co dependencies] count]];
 }
 
-- (void)test_remove_dependency
+- (void)testRemoveDependency
 {
-    var co = [[CPOperation alloc] init];
-    var co_dep1 = [[CPOperation alloc] init];
-    var co_dep2 = [[CPOperation alloc] init];
+    var co = [[CPOperation alloc] init],
+        co_dep1 = [[CPOperation alloc] init],
+        co_dep2 = [[CPOperation alloc] init];
     
     [co addDependency:co_dep1];
     [co addDependency:co_dep2];
@@ -65,8 +70,10 @@
     [self assert:0 equals:[[co dependencies] count]];
 }
 
-- (void)test_correct_values_on_init {
+- (void)testCorrectValuesOnInit 
+{
     var co = [[CPOperation alloc] init];
+    
     [self assertTrue:[co isReady]];
     [self assertFalse:[co isCancelled]];
     [self assertFalse:[co isConcurrent]];
@@ -75,10 +82,11 @@
     [self assert:CPOperationQueuePriorityNormal equals:[co queuePriority]];
 }
 
-- (void)test_is_ready_with_dependencies {
-    var co = [[CPOperation alloc] init];
-    var co_dep1 = [[CPOperation alloc] init];
-    var co_dep2 = [[CPOperation alloc] init];
+- (void)testIsReadyWithDependencies 
+{
+    var co = [[CPOperation alloc] init],
+        co_dep1 = [[CPOperation alloc] init],
+        co_dep2 = [[CPOperation alloc] init];
     
     [self assertTrue:[co isReady]];
     
@@ -96,7 +104,8 @@
     [self assertTrue:[co isReady]];
 }
 
-- (void)test_completion_function {
+- (void)testCompletionFunction 
+{
     var to = [[TestOperation alloc] init];
     
     [to setCompletionFunction:function() {[to setValue:@"something"];}];
@@ -107,10 +116,11 @@
 
 // KVO Tests
 
-- (void)test_KVO {
-    var to = [[TestOperation alloc] init];
-    var to2 = [[TestOperation alloc] init];
-    var obs = [[TestObserver alloc] init];
+- (void)testKVO 
+{
+    var to = [[TestOperation alloc] init],
+        to2 = [[TestOperation alloc] init],
+        obs = [[TestObserver alloc] init];
 
     
     [to addObserver:obs

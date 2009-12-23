@@ -2,24 +2,29 @@
 
 globalResults = [];
 
-@implementation TestOperation : CPOperation {
+@implementation TestOperation : CPOperation 
+{
     CPString name @accessors;
     CPString value @accessors;
 }
 
-- (void)main {
+- (void)main 
+{
     [self setName:@"test"];
     globalResults.push([self value]);
 }
 
 @end
 
-@implementation TestObserver : CPObject {
+@implementation TestObserver : CPObject 
+{
     CPArray changedKeyPaths @accessors;
 }
 
-- (id)init {
-    if (self = [super init]) {
+- (id)init 
+{
+    if (self = [super init]) 
+    {
         changedKeyPaths = [[CPArray alloc] init];
     }
     return self;
@@ -38,9 +43,10 @@ globalResults = [];
 
 @implementation CPOperationQueueTest : OJTestCase
 
-- (void)test_addOperation {
-    var oq = [[CPOperationQueue alloc] init];
-    var to = [[TestOperation alloc] init];
+- (void)testAddOperation 
+{
+    var oq = [[CPOperationQueue alloc] init],
+        to = [[TestOperation alloc] init];
     
     [self assert:0 equals:[oq operationCount]];
     [oq addOperation:to];
@@ -48,11 +54,12 @@ globalResults = [];
     [self assert:1 equals:[oq operationCount]];
 }
 
-- (void)test_addOperations_with_waitUntilFinished {
-    var oq = [[CPOperationQueue alloc] init];
-    var to1 = [[TestOperation alloc] init];
-    var to2 = [[TestOperation alloc] init];
-    var to3 = [[TestOperation alloc] init];
+- (void)testAddOperationsWithWaitUntilFinished 
+{
+    var oq = [[CPOperationQueue alloc] init],
+        to1 = [[TestOperation alloc] init],
+        to2 = [[TestOperation alloc] init],
+        to3 = [[TestOperation alloc] init];
     
     [to3 addDependency:to1];
     [to3 addDependency:to2];
@@ -71,9 +78,10 @@ globalResults = [];
     [self assert:3 equals:[oq operationCount]];
 }
 
-- (void)test_runOperationsInCorrectOrder {
-    var oq = [[CPOperationQueue alloc] init];
-    var to1 = [[TestOperation alloc] init];
+- (void)testRunOperationsInCorrectOrder 
+{
+    var oq = [[CPOperationQueue alloc] init],
+        to1 = [[TestOperation alloc] init];
     [to1 setQueuePriority:CPOperationQueuePriorityVeryLow];
     [to1 setValue:@"very low"];
     var to2 = [[TestOperation alloc] init];
@@ -112,7 +120,8 @@ globalResults = [];
     [self assert:@"very low" equals:globalResults[1]];
 }
 
-- (void)test_addOperationWithFunction {
+- (void)testAddOperationWithFunction 
+{
     var oq = [[CPOperationQueue alloc] init];
     globalResults = [];
     
@@ -121,9 +130,10 @@ globalResults = [];
     [self assert:@"Soylent" equals:globalResults[0]];
 }
 
-- (void)test_KVO {    
-    var oq = [[CPOperationQueue alloc] init];
-    var obs = [[TestObserver alloc] init];
+- (void)testKVO 
+{    
+    var oq = [[CPOperationQueue alloc] init],
+        obs = [[TestObserver alloc] init];
     
     [oq addObserver:obs
          forKeyPath:@"operations"

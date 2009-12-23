@@ -28,19 +28,24 @@
     @class CPInvocationOperation
     @brief Represents an operation using an invocation that can be run in an CPOperationQueue
 */
-@implementation CPInvocationOperation : CPOperation {
+@implementation CPInvocationOperation : CPOperation 
+{
     CPInvocation _invocation;
 }
 
 
-- (void)main {
-    if (_invocation) {
+- (void)main 
+{
+    if (_invocation) 
+    {
         [_invocation invoke];
     }
 }
 
-- (id)init {
-    if (self = [super init]) {
+- (id)init 
+{
+    if (self = [super init]) 
+    {
         _invocation = nil;
     }
     return self;
@@ -50,8 +55,10 @@
     Returns a CPInvocationOperation object initialized with the specified invocation object.
     @param inv the invocation
 */
-- (id)initWithInvocation:(CPInvocation)inv {
-    if (self = [self init]) {
+- (id)initWithInvocation:(CPInvocation)inv 
+{
+    if (self = [self init]) 
+    {
         _invocation = inv;
     }
     
@@ -64,7 +71,8 @@
     @param sel the selector that should be called on the target
     @param arg the arguments
 */
-- (id)initWithTarget:(id)target selector:(SEL)sel object:(id)arg {
+- (id)initWithTarget:(id)target selector:(SEL)sel object:(id)arg 
+{
     var inv = [[CPInvocation alloc] initWithMethodSignature:nil];
     [inv setTarget:target];
     [inv setSelector:sel];
@@ -76,15 +84,18 @@
 /*!
     Returns the receiver’s invocation object.
 */
-- (CPInvocation)invocation {
+- (CPInvocation)invocation 
+{
     return _invocation;
 }
 
 /*!
     Returns the result of the invocation or method.
 */
-- (id)result {
-    if ([self isFinished] && _invocation) {
+- (id)result 
+{
+    if ([self isFinished] && _invocation) 
+    {
         return [_invocation returnValue];
     }
     
