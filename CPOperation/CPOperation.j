@@ -70,7 +70,7 @@ CPOperationQueuePriorityVeryHigh = 8;
     BOOL _finished;
     BOOL _ready;
     int _queuePriority;
-    JSObject _completionBlock;
+    JSObject _completionFunction;
     CPArray _dependencies;
 }
 
@@ -92,7 +92,7 @@ CPOperationQueuePriorityVeryHigh = 8;
 }
 
 /*!
-    Starts the operation (runs the main method), sets all the status flags and runs the completion block if it's set
+    Starts the operation (runs the main method), sets all the status flags and runs the completion function if it's set
 */
 - (void)start {
     if (!_cancelled) {
@@ -100,8 +100,8 @@ CPOperationQueuePriorityVeryHigh = 8;
         _executing = YES;
         [self didChangeValueForKey:@"isExecuting"];
         [self main];
-        if (_completionBlock) {
-            _completionBlock();
+        if (_completionFunction) {
+            _completionFunction();
         }
         [self willChangeValueForKey:@"isExecuting"];
         _executing = NO;
@@ -153,18 +153,18 @@ CPOperationQueuePriorityVeryHigh = 8;
 }
 
 /*!
-    The block(JS function) that should be run after the main method
+    The JS function that should be run after the main method
     @return JS function
 */
-– (JSObject)completionBlock {
-    return _completionBlock;
+– (JSObject)completionFunction {
+    return _completionFunction;
 }
 
 /*!
     Sets the JS function that should be run after the main method
 */
-- (void)setCompletionBlock:(JSObject)aJavaScriptFunction {
-    _completionBlock = aJavaScriptFunction;
+- (void)setCompletionFunction:(JSObject)aJavaScriptFunction {
+    _completionFunction = aJavaScriptFunction;
 }
 
 /*!

@@ -96,10 +96,10 @@
     [self assertTrue:[co isReady]];
 }
 
-- (void)test_completion_block {
+- (void)test_completion_function {
     var to = [[TestOperation alloc] init];
     
-    [to setCompletionBlock:function() {[to setValue:@"something"];}];
+    [to setCompletionFunction:function() {[to setValue:@"something"];}];
     [to start];
     
     [self assert:@"something" equals:[to value]];
@@ -144,7 +144,7 @@
             context:NULL];
 
     [to addObserver:obs
-         forKeyPath:@"completionBlock"
+         forKeyPath:@"completionFunction"
             options:(CPKeyValueObservingOptionNew)
             context:NULL];     
             
@@ -158,8 +158,8 @@
     [self assert:@"dependencies" equals:[[obs changedKeyPaths] objectAtIndex:3]];
     [to setQueuePriority:CPOperationQueuePriorityHigh];    
     [self assert:@"queuePriority" equals:[[obs changedKeyPaths] objectAtIndex:4]];
-    [to setCompletionBlock:function() {}];     
-    [self assert:@"completionBlock" equals:[[obs changedKeyPaths] objectAtIndex:5]]; 
+    [to setCompletionFunction:function() {}];     
+    [self assert:@"completionFunction" equals:[[obs changedKeyPaths] objectAtIndex:5]]; 
             
     // this should set executing = yes, executing = no, finished = yes.
     [to start];

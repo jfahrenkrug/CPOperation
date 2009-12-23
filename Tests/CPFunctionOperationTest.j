@@ -1,4 +1,4 @@
-@import "../CPOperation/CPBlockOperation.j"
+@import "../CPOperation/CPFunctionOperation.j"
 
 @implementation SomeObject : CPObject {
     CPString result @accessors;
@@ -11,7 +11,7 @@
 
 @end
 
-@implementation CPBlockOperationTest : OJTestCase
+@implementation CPFunctionOperationTest : OJTestCase
 
 - (void)test_run_invocation
 {
@@ -19,9 +19,9 @@
     
     var someVar = nil;
     
-    blockOp = [CPBlockOperation blockOperationWithBlock:function() {[so setAString:@"Hello World"]}];
-    [blockOp addExecutionBlock:function() {someVar = 'Soylent Green';}];
-    [blockOp start];
+    funcOp = [CPFunctionOperation functionOperationWithFunction:function() {[so setAString:@"Hello World"]}];
+    [funcOp addExecutionFunction:function() {someVar = 'Soylent Green';}];
+    [funcOp start];
     
     [self assert:@"Hello World" equals:[so result]];
     [self assert:@"Soylent Green" equals:someVar];                  

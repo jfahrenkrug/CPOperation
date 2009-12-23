@@ -22,7 +22,7 @@
 @import <Foundation/CPObject.j>
 @import "CPOperation.j"
 @import "CPInvocationOperation.j"
-@import "CPBlockOperation.j"
+@import "CPFunctionOperation.j"
 
 // the global queue (mainQueue)
 var cpOperationMainQueue = nil;
@@ -117,8 +117,8 @@ var cpOperationMainQueue = nil;
     Wraps the given js function in a CPOperation and adds it to the queue
     @param aFunction the JS function to add
 */
-- (void)addOperationWithBlock:(JSObject)aFunction {
-    [self addOperation:[CPBlockOperation blockOperationWithBlock:aFunction]];
+- (void)addOperationWithFunction:(JSObject)aFunction {
+    [self addOperation:[CPFunctionOperation functionOperationWithFunction:aFunction]];
 }
 
 - (CPArray)operations {

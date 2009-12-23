@@ -112,11 +112,11 @@ globalResults = [];
     [self assert:@"very low" equals:globalResults[1]];
 }
 
-- (void)test_addOperationWithBlock {
+- (void)test_addOperationWithFunction {
     var oq = [[CPOperationQueue alloc] init];
     globalResults = [];
     
-    [oq addOperationWithBlock:function() {globalResults.push("Soylent");}];
+    [oq addOperationWithFunction:function() {globalResults.push("Soylent");}];
     [oq waitUntilAllOperationsAreFinished];
     [self assert:@"Soylent" equals:globalResults[0]];
 }
@@ -146,7 +146,7 @@ globalResults = [];
             context:NULL];        
                         
             
-    [oq addOperationWithBlock:function() {globalResults.push("Soylent");}];
+    [oq addOperationWithFunction:function() {globalResults.push("Soylent");}];
     [self assert:@"operations" equals:[[obs changedKeyPaths] objectAtIndex:0]];
     [self assert:@"operationCount" equals:[[obs changedKeyPaths] objectAtIndex:1]];
     

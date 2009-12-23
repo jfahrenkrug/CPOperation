@@ -1,5 +1,5 @@
 /*
- * CPBlockOperation.j
+ * CPFunctionOperation.j
  *
  * Created by Johannes Fahrenkrug.
  * Copyright 2009, Springenwerk.
@@ -24,54 +24,54 @@
 
 
 /*! 
-    @class CPBlockOperation
+    @class CPFunctionOperation
     @brief Represents an operation using a JavaScript function that can be run in an CPOperationQueue
 */
-@implementation CPBlockOperation : CPOperation {
-    CPArray _blocks;
+@implementation CPFunctionOperation : CPOperation {
+    CPArray _functions;
 }
 
 
 - (void)main {
-    if (_blocks && [_blocks count] > 0) {
+    if (_functions && [_functions count] > 0) {
         var i = 0;
         
-        for (i = 0; i < [_blocks count]; i++) {
-            var block = [_blocks objectAtIndex:i];
-            block();
+        for (i = 0; i < [_functions count]; i++) {
+            var func = [_functions objectAtIndex:i];
+            func();
         }
     }
 }
 
 - (id)init {
     if (self = [super init]) {
-        _blocks = [];
+        _functions = [];
     }
     return self;
 }
 
 /*!
-    Adds the specified block (js function) to the receiver’s list of blocks to perform.
+    Adds the specified JS function to the receiver’s list of functions to perform.
 */
-- (void)addExecutionBlock:(JSObject)jsFunction {
-    [_blocks addObject:jsFunction];
+- (void)addExecutionFunction:(JSObject)jsFunction {
+    [_functions addObject:jsFunction];
 }
 
 /*!
-    Returns an array containing the blocks associated with the receiver.
+    Returns an array containing the functions associated with the receiver.
 */
-- (CPArray)executionBlocks {
-    return _blocks;
+- (CPArray)executionFunctions {
+    return _functions;
 }
 
 /*!
-    Creates and returns an NSBlockOperation object and adds the specified block to it.
+    Creates and returns an NSFunctionOperation object and adds the specified function to it.
 */
-+ (id)blockOperationWithBlock:(JSObject)jsFunction {
-    blockOp = [[CPBlockOperation alloc] init];
-    [blockOp addExecutionBlock:jsFunction];
++ (id)functionOperationWithFunction:(JSObject)jsFunction {
+    functionOp = [[CPFunctionOperation alloc] init];
+    [functionOp addExecutionFunction:jsFunction];
     
-    return blockOp;
+    return functionOp;
 }
 
 @end
